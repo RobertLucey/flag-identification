@@ -34,6 +34,7 @@ setup(
             "prepare_flags = flag_identification.bin.prep:main",
             "train_flags = flag_identification.bin.train:main",
             "predict_flag = flag_identification.bin.predict_single:main",
+            "move_additional_flags = flag_identification.bin.move_additional_flags:main"
         ]
     },
 )

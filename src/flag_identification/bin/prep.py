@@ -5,9 +5,10 @@ import shutil
 import tqdm
 import random
 from multiprocessing import Pool
+from distutils.dir_util import copy_tree
 
 import imgaug.augmenters as iaa
-from flag_identification.settings import RAW_DIR, AUGMENTED_DIR, PREP_DIR, W, H
+from flag_identification.settings import RAW_DIR, AUGMENTED_DIR, ADDITIONAL_IMAGES_DIR, PREP_DIR, W, H
 from flag_identification.utils import wipe_dir, clean_pngs
 
 
@@ -83,9 +84,12 @@ def mod_file(args):
 
 def populate_prep():
 
-    # TODO: move from additional manually uploaded to raw
+    # TODO: warn of dups
 
     wipe_dir(PREP_DIR)
+
+    copy_tree(ADDITIONAL_IMAGES_DIR, PREP_DIR)
+
     print(f"Moving pngs from {RAW_DIR} to {PREP_DIR}")
     labels = set()
     for f in os.listdir(RAW_DIR):
