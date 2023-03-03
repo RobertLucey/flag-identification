@@ -27,24 +27,36 @@ def process(url):
     imgs = body.find_all("img")
 
     for img in imgs:
+        src = os.path.basename(img.get("src"))
+        src = src.replace("_", " ")
 
-        src = os.path.basename(img.get('src'))
-        src = src.replace('_', ' ')
-
-        while Path(src).suffix in {'.png', '.gif', '.jpg', '.jpeg', '.svg', '.PNG', '.webp', '.SVG', '.JPG', '.tif'}:
-            src = str(Path(src).with_suffix(''))
-        src = src + '.png'
+        while Path(src).suffix in {
+            ".png",
+            ".gif",
+            ".jpg",
+            ".jpeg",
+            ".svg",
+            ".PNG",
+            ".webp",
+            ".SVG",
+            ".JPG",
+            ".tif",
+        }:
+            src = str(Path(src).with_suffix(""))
+        src = src + ".png"
         src = unquote(src)
-        src_path = os.path.join(RAW_DIR, category_modified + '_' + src)
+        src_path = os.path.join(RAW_DIR, category_modified + "_" + src)
 
         if os.path.exists(src_path):
-            print(f'Already exists: {src_path}')
+            print(f"Already exists: {src_path}")
             continue
 
-        if '-' in src:
-            src_path = os.path.join(RAW_DIR, category_modified + '_' + '-'.join(src.split('-')[1:]))
+        if "-" in src:
+            src_path = os.path.join(
+                RAW_DIR, category_modified + "_" + "-".join(src.split("-")[1:])
+            )
             if os.path.exists(src_path):
-                print(f'Already exists: {src_path}')
+                print(f"Already exists: {src_path}")
                 continue
 
         print(f'GET: {img.get("src")}       {img.parent.get("href")}')
@@ -71,7 +83,7 @@ def process(url):
                 )
 
                 if os.path.exists(file_path):
-                    print(f'Already exists: {file_path}')
+                    print(f"Already exists: {file_path}")
                     continue
 
                 img_data = requests.get(url, headers=HEADERS).content
@@ -102,7 +114,6 @@ def process(url):
                     print(f"Failed to save svg as png: {url}")
 
             elif url.endswith("jpg") or url.endswith("JPG"):
-
                 response = requests.get(url)
                 soup = bs4.BeautifulSoup(response.text)
                 link = soup.find("div", {"id": "file", "class": "fullImageLink"})
@@ -121,7 +132,7 @@ def process(url):
                 )
 
                 if os.path.exists(file_path):
-                    print(f'Already exists: {file_path}')
+                    print(f"Already exists: {file_path}")
                     continue
 
                 img_data = requests.get(url, headers=HEADERS).content
@@ -139,7 +150,6 @@ def process(url):
                     print(f"Cannot save as png: /tmp/{name}    {url}")
 
             elif url.endswith("png") or url.endswith("PNG"):
-
                 response = requests.get(url)
                 soup = bs4.BeautifulSoup(response.text)
                 link = soup.find("div", {"id": "file", "class": "fullImageLink"})
@@ -156,7 +166,7 @@ def process(url):
                 )
 
                 if os.path.exists(file_path):
-                    print(f'Already exists: {file_path}')
+                    print(f"Already exists: {file_path}")
                     continue
 
                 img_data = requests.get(url, headers=HEADERS).content
@@ -167,7 +177,6 @@ def process(url):
                     print(f"Can't write to file: {file_path}    {url}")
 
             elif url.endswith("gif") or url.endswith("gif"):
-
                 response = requests.get(url)
                 soup = bs4.BeautifulSoup(response.text)
                 link = soup.find("div", {"id": "file", "class": "fullImageLink"})
@@ -186,7 +195,7 @@ def process(url):
                 )
 
                 if os.path.exists(file_path):
-                    print(f'Already exists: {file_path}')
+                    print(f"Already exists: {file_path}")
                     continue
 
                 img_data = requests.get(url, headers=HEADERS).content
@@ -199,7 +208,7 @@ def process(url):
                     print(f"Could not open image: /tmp/{name}    {url}")
 
                 try:
-                    im.save(file_path, 'png')
+                    im.save(file_path, "png")
                 except:
                     print(f"Cannot save as png: /tmp/{name}    {url}")
 

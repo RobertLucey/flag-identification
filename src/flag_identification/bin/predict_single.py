@@ -19,7 +19,6 @@ from flag_identification.settings import (
 
 
 def main():
-
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--path", dest="path", help="path")
@@ -55,7 +54,6 @@ def main():
     sum_scores = sum([i[1] for i in sorted_results])
 
     for value in sorted_results:
-
         score = value[1] / sum_scores
 
         print(f"{score}: {value[0]}")

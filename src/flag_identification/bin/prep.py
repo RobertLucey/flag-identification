@@ -8,12 +8,18 @@ from multiprocessing import Pool
 from distutils.dir_util import copy_tree
 
 import imgaug.augmenters as iaa
-from flag_identification.settings import RAW_DIR, AUGMENTED_DIR, ADDITIONAL_IMAGES_DIR, PREP_DIR, W, H
+from flag_identification.settings import (
+    RAW_DIR,
+    AUGMENTED_DIR,
+    ADDITIONAL_IMAGES_DIR,
+    PREP_DIR,
+    W,
+    H,
+)
 from flag_identification.utils import wipe_dir, clean_pngs
 
 
 def mod_file(args):
-
     count, f = args
 
     if not f.endswith(".png") or f.startswith("tmp"):
@@ -25,7 +31,6 @@ def mod_file(args):
     image = cv2.resize(image, (W, H), interpolation=cv2.INTER_AREA)
 
     for i in range(count):
-
         img = image
         border_colour = [
             random.randint(100, 255),
@@ -83,7 +88,6 @@ def mod_file(args):
 
 
 def populate_prep():
-
     # TODO: warn of dups
 
     wipe_dir(PREP_DIR)
@@ -96,8 +100,8 @@ def populate_prep():
         label = f.split("_")[-1].replace("–", "-")
         label = unicodedata.normalize("NFKD", label).encode("ASCII", "ignore")
         label = str(label, "utf-8")
-        label = label.replace(' of ', ' ')
-        label = label.replace(' ', '-')
+        label = label.replace(" of ", " ")
+        label = label.replace(" ", "-")
         label = label.lower()
 
         if label not in labels:

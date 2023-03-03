@@ -22,7 +22,6 @@ from flag_identification.settings import (
 
 
 def get_dataframe(flags_to_use):
-
     flags_set = set([f.replace(".png", "") for f in flags_to_use])
 
     images_to_use = [
@@ -82,7 +81,6 @@ def get_model(classes):
 
 
 def split_train_test(images, df):
-
     df_keys = df.keys()
 
     x_train = []
@@ -162,11 +160,9 @@ def chunks(l, n):
 
 
 def main():
-
     range_max = 15
 
     for idx in range(range_max):
-
         print(f"STARTING ROUND {idx + 1}")
 
         # split into range_max and select idx of os.path.listdir(PREP_DIR)

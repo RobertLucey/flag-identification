@@ -9,7 +9,6 @@ from flag_identification.settings import MODEL_PATH, W, H, LABEL_MAP_PATH, PREP_
 
 
 def main():
-
     id_map = None
     with open(LABEL_MAP_PATH, "r") as outfile:
         id_map = json.load(outfile)
@@ -17,7 +16,6 @@ def main():
     reconstructed_model = keras.models.load_model(MODEL_PATH)
 
     for fn in os.listdir(PREP_DIR):
-
         img = image.load_img(os.path.join(PREP_DIR, fn), target_size=(W, H))
         img = image.img_to_array(img)
         img = img / 255
