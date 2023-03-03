@@ -8,29 +8,6 @@ import tqdm
 from flag_identification import logger
 
 
-def is_text_flaggy(text):
-    return any(
-        [
-            "flag" in text.lower(),
-            "bandeira" in text.lower(),
-            "bandera" in text.lower(),
-            "bandiera" in text.lower(),
-            "vlag" in text.lower(),
-            "colours" in text.lower(),
-            "govern" in text.lower(),
-            "drapeau" in text.lower(),
-            "ensign" in text.lower(),
-            "banner" in text.lower(),
-            "fiav" in text.lower(),
-            "naval" in text.lower(),
-            "royal" in text.lower(),
-            "emblem" in text.lower(),
-            "seal" in text.lower(),
-            "arms" in text.lower(),
-        ]
-    )
-
-
 def wipe_dir(path):
     try:
         shutil.rmtree(path)
