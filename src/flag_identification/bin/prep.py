@@ -96,10 +96,13 @@ def populate_prep():
         label = f.split("_")[-1].replace("–", "-")
         label = unicodedata.normalize("NFKD", label).encode("ASCII", "ignore")
         label = str(label, "utf-8")
+        label = label.replace(' of ', ' ')
+        label = label.replace(' ', '-')
+        label = label.lower()
 
-        if label in labels:
+        if label not in labels:
             shutil.copyfile(os.path.join(RAW_DIR, f), os.path.join(PREP_DIR, label))
-        labels.add(label)
+            labels.add(label)
 
 
 def main():
