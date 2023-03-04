@@ -160,13 +160,15 @@ def chunks(l, n):
 
 
 def main():
-    range_max = 15
+
+    prep_files = os.listdir(PREP_DIR)
+
+    range_max = int(len(prep_files) / 300)
 
     for idx in range(range_max):
         print(f"STARTING ROUND {idx + 1}")
 
         # split into range_max and select idx of os.path.listdir(PREP_DIR)
-        prep_files = os.listdir(PREP_DIR)
         flags_to_use = list(chunks(prep_files, int(len(prep_files) / range_max)))[idx]
 
         logger.info("get dataframe")
