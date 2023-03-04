@@ -28,7 +28,11 @@ def mod_file(args):
     image = cv2.imread(os.path.join(PREP_DIR, f), 1)
 
     # resize for speed
-    image = cv2.resize(image, (W, H), interpolation=cv2.INTER_AREA)
+    try:
+        image = cv2.resize(image, (W, H), interpolation=cv2.INTER_AREA)
+    except:
+        print(f'Could not resize: {f}')
+        return
 
     for i in range(count):
         img = image
