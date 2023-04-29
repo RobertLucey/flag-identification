@@ -96,7 +96,8 @@ def populate_prep():
 
     wipe_dir(PREP_DIR)
 
-    copy_tree(ADDITIONAL_IMAGES_DIR, PREP_DIR)
+    if os.path.exists(ADDITIONAL_IMAGES_DIR):
+        copy_tree(ADDITIONAL_IMAGES_DIR, PREP_DIR)
 
     print(f"Moving pngs from {RAW_DIR} to {PREP_DIR}")
     labels = set()
@@ -123,7 +124,7 @@ def main():
 
     pool = Pool()
     for _ in tqdm.tqdm(
-        pool.imap_unordered(mod_file, [(100, f) for f in os.listdir(PREP_DIR)]),
+        pool.imap_unordered(mod_file, [(50, f) for f in os.listdir(PREP_DIR)]),
         total=len(os.listdir(PREP_DIR)),
     ):
         pass
