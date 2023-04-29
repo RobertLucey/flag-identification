@@ -163,7 +163,7 @@ def main():
 
     prep_files = os.listdir(PREP_DIR)
 
-    range_max = int(len(prep_files) / 300)
+    range_max = int(len(prep_files) / 500)
 
     for idx in range(range_max):
         print(f"STARTING ROUND {idx + 1}")
@@ -202,7 +202,7 @@ def main():
         model.fit(
             x_train,
             y_train,
-            epochs=4,
+            epochs=6,
             validation_data=(x_test, y_test),
             batch_size=64,
         )
